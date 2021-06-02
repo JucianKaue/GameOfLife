@@ -1,0 +1,16 @@
+nav {
+    margin-top: 0pt;
+    background-color: rgb(255, 0, 0);
+    
+}
+
+h1 {
+    text-align: center;
+}
+
+canvas {
+    height: 100%;
+    width: 100%;
+
+    border:2px solid black;
+}
