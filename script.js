@@ -50,9 +50,34 @@ function actualize_grid(grid) {
     // cell > 3 -> morre
     // cell < 2 -> morre
     // space = 3 -> vive
+    
     function count_around(n) {
         let around
-        if (n[0] == 0) {
+        if (n[0] == 0 & n[1] == 0) { // Canto superior esquerdo
+            around = [
+                grid[n[0]][n[1]+1],
+                grid[n[0]+1][n[1]],
+                grid[n[0]+1][n[1]+1]
+            ]
+        } else if (n[0] == 0 & n[1] == grid[1].length-1) { // Canto superior direito
+            around = [
+                grid[n[0]][n[1]-1],
+                grid[n[0]+1][n[1]-1],
+                grid[n[0]+1][n[1]],
+            ]
+        } else if (n[0] == grid.length-1 & n[1] == grid[1].length-1) { // Canto inferior direito
+            around = [
+                grid[n[0]-1][n[1]-1],
+                grid[n[0]-1][n[1]],
+                grid[n[0]][n[1]-1],
+            ]
+        } else if(n[0] == grid.length-1 & n[1] == 0) { // Canto inferior esquerdo
+            around = [
+                grid[n[0]-1][n[1]],
+                grid[n[0]-1][n[1]+1],
+                grid[n[0]][n[1]+1],
+            ]
+        } else if (n[0] == 0) { // linha superior
             around = [
                 grid[n[0]][n[1]-1],
                 grid[n[0]][n[1]+1],
@@ -60,17 +85,31 @@ function actualize_grid(grid) {
                 grid[n[0]+1][n[1]],
                 grid[n[0]+1][n[1]+1]
             ]
-        } else if (n[1] == 0) {
+        } else if (n[1] == 0) { // coluna esquerda
             around = [
-               grid[n[0]-1][n[1]],
+                grid[n[0]-1][n[1]],
                 grid[n[0]-1][n[1]+1],
                 grid[n[0]][n[1]+1],
                 grid[n[0]+1][n[1]],
                 grid[n[0]+1][n[1]+1] 
             ]
-            
-        }
-        else {
+        } else if (n[0] == grid.length-1) { // linha inferior
+            around = [
+                grid[n[0]-1][n[1]-1],
+                grid[n[0]-1][n[1]],
+                grid[n[0]-1][n[1]+1],
+                grid[n[0]][n[1]-1],
+                grid[n[0]][n[1]+1],
+            ]
+        } else if (n[1] == grid[1].length-1) { // coluna direita
+            around = [
+                grid[n[0]-1][n[1]-1],
+                grid[n[0]-1][n[1]],
+                grid[n[0]][n[1]-1],
+                grid[n[0]+1][n[1]-1],
+                grid[n[0]+1][n[1]],
+            ]
+        } else { // resto do tabuleiro
             around = [
                 grid[n[0]-1][n[1]-1],
                 grid[n[0]-1][n[1]],
@@ -82,7 +121,6 @@ function actualize_grid(grid) {
                 grid[n[0]+1][n[1]+1]
             ]
         }
-        
 
         let counter = 0
         for (let i = 0; i < around.length; i++) {
@@ -93,6 +131,23 @@ function actualize_grid(grid) {
         return counter
     }
 
+    function generate_list_counters() {
+        let list = Array(grid.length)
+
+        for (let i = 0; i < grid.length; i++) {
+            list[i] = Array(grid[0].length)
+        } 
+
+        console.log(list[1])
+        for (let i = 0; i <= grid.length-1; i++) {
+            for (let j = 0; j <= grid[i].length-1; j++) {
+                list[i][j] = count_around([i, j])
+            }
+        }
+        return list
+    }
+
+    console.log(generate_list_counters()[4])
 }
 // 
 function click(pos, grid) {
@@ -139,7 +194,14 @@ function convert_PosToCell(mouse_position) {
 }
 
 function change_grid(grid) {
-    grid[1][1] = 1
+    grid[5][4] = 1
+    grid[5][5] = 1
+    grid[5][6] = 1
+    grid[6][7] = 1
+    grid[7][6] = 1
+    grid[7][5] = 1
+    grid[7][4] = 1
+    grid[6][3] = 1
     return grid
 }
 
@@ -158,6 +220,8 @@ let rows = screen[1]/cell_size - (Math.round((screen[1]/cell_size*cell_border_si
 canvas.addEventListener('click', click([canvas.offsetWidth, canvas.offsetHeight]))
 
 function setup() {
+    console.log(columns)
+    console.log(rows)
     // Verificar se o HTMl canvas está funcionando corretamente e inicializa-lo
     let canvas = window.document.querySelector("canvas")
     if (! canvas.getContext) {
@@ -167,7 +231,7 @@ function setup() {
     }
     
     let grid = Create_2D_grid(columns, rows)    // Cria o grid
-
+    console.log(grid.length, grid[1].length)
     draw(grid) // Desenha o tabuleiro
 
     canvas.addEventListener('click', (event) => {
@@ -179,6 +243,7 @@ function setup() {
     document.addEventListener('keydown', (event) => {
         console.log('tecla clicada')
         grid = change_grid(grid)
+        draw(grid)
         actualize_grid(grid)
         draw(grid)
         
