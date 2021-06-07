@@ -7,7 +7,7 @@ window.document.addEventListener('DOMContentLoaded', setup)
 */
 
 
-// Creates a arrays of arrays to represents a 2D grid
+// Creates an array of arrays to represents a 2D grid
 function Create_2D_grid(x, y) {
     let array = new Array(y);
     for (let i = 0; i < y; i++) {
@@ -21,7 +21,7 @@ function Create_2D_grid(x, y) {
     return array
 }
 
-// WORKING
+// Print the grid in the screen
 function draw(grid) {
     let initial_pos = [(screen[0] - ((cell_size+cell_border_size)*columns)) / 2,
                        (screen[1] - ((cell_size+cell_border_size)*rows)) / 2]
@@ -45,12 +45,9 @@ function draw(grid) {
         cell_position[0] = initial_pos[0]
     }
 }
-// WORKING
+
+// Actualize the grid based on the rules of game of life
 function actualize_grid(grid) {
-    // cell > 3 -> morre
-    // cell < 2 -> morre
-    // space = 3 -> vive
-    
     function count_around(n) {
         let around
         if (n[0] == 0 & n[1] == 0) { // Canto superior esquerdo
@@ -152,16 +149,16 @@ function actualize_grid(grid) {
                    new_grid[i][j] = 0
                }
                
-            } else if (grid[i][j] == 0) {
+            }
                if (around == 3) {
                 new_grid[i][j] = 1
                }
-           }
         }
     }
 
     return new_grid
 }
+
 // ERRO
 function click(pos, grid) {
     console.log(pos)
@@ -205,11 +202,15 @@ function convert_PosToCell(mouse_position) {
     return [cell_x, cell_y]
     */
 }
-
+// FUNÇÃO TESTE, EXCLUIR DPS
 function change_grid(grid) {
     grid[6][4] = 1
     grid[6][5] = 1
-    grid[6][6] = 1
+    grid[7][6] = 1
+    grid[8][5] = 1
+    grid[8][4] = 1
+    grid[7][3] = 1
+    grid[7][2] = 1
     return grid
 }
 
@@ -228,7 +229,6 @@ let rows = screen[1]/cell_size - (Math.round((screen[1]/cell_size*cell_border_si
 canvas.addEventListener('click', click([canvas.offsetWidth, canvas.offsetHeight]))
 
 function setup() {
-    console.log(columns, rows)
     // Verificar se o HTMl canvas está funcionando corretamente e inicializa-lo
     let canvas = window.document.querySelector("canvas")
     if (! canvas.getContext) {
@@ -244,6 +244,7 @@ function setup() {
     draw(grid)
 
     window.document.querySelector('button#start').addEventListener('click', () => {
+        
         grid = actualize_grid(grid)
         draw(grid)
     })

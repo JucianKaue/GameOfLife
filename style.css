@@ -1,0 +1,97 @@
+.botao{
+    font-family: Georgia;
+    font-size: 30px; 
+    text-transform: uppercase;
+    font-weight: 1000;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+.botao-rosa {
+    background: rgb(241, 147, 202);
+    color:#fff;
+    box-shadow: 0 5px 0 rgb(223, 70, 159);
+}
+.botao-rosa:hover {
+    background: rgb(223, 70, 159);
+    color:#fff;
+    box-shadow: 0 5px 0 rgb(156, 37, 107);
+}
+.botao-rosa:active {
+    position:relative;
+    top:5px;
+    box-shadow: none;
+}
+.botao2{
+    font-family: Georgia;
+    font-size: 30px; 
+    text-transform: uppercase;
+    font-weight: 1000;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+.botao2-roxo {
+    background: rgb(179, 135, 238);
+    color:#fff;
+    box-shadow: 0 5px 0 rgb(153, 106, 214);
+}
+.botao2-roxo:hover {
+    background: rgb(128, 86, 184);
+    color:#fff;
+    box-shadow: 0 5px 0 rgb(101, 66, 148);
+}
+.botao2-roxo:active {
+    position:relative;
+    top:5px;
+    box-shadow: none;
+}
+
+.container-logo {
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+header{
+    width: 100%;
+    height: 100px;
+    font-family: Georgia;
+    font-size: 20px;
+    background-color: rgb(94, 231, 156);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.container-logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-texto {
+    margin-left:20px ;
+    color: white;
+}
+
+.menu li{
+    display: inline-block;
+}
+
+.menu li a {
+    font-size: 25px;
+    text-decoration: none;
+    color: white;
+}
+
+.menu li a:hover {
+    background-color: rgb(44, 163, 97);
+}
+
+.rodape {
+    width: 100%;
+    height: 100px;
+    background-color: rgb(161, 191, 231);
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}

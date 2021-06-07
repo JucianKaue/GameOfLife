@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> INFORMAÇÕES </title>
+    <link rel="stylesheet" href="gameoflife.css">
+</head>
+<body>
+    <header>
+
+    <h3>Sobre o jogo</h3>
+
+    <p> O jogo da vida (game of life) é um autômato celular desenvolvido pelo matemático John Horton Conway.
+    <p> As regras do jogo são bem simples e tem aplicações em diversas áreas da ciência. </p> 
+    <p> As regras definidas são aplicadas a cada nova "geração", assim a partir de uma imagem em um tabuleiro 
+        bidimensional definida pelo jogador, percebem-se mudanças muitas vezes inesperadas e belas a cada nova geração, 
+        variando de padrões fixos a caóticos. </p>
+    <p> Este "jogo" é na realidade um jogo sem jogador, o que quer dizer que sua evolução é determinada pelo seu estado inicial, 
+        não necessitando de nenhuma entrada de jogadores humanos. Ele é jogado em um conjunto de células quadradas que seguem ao 
+        infinito em todas as direções. Cada célula tem oito "vizinhos", que são as células adjacentes, incluindo as diagonais. 
+        Cada célula pode estar em dois estados: "viva" ou "morta". O estado do tabuleiro evolui e se modifica em pequenas passagens de tempo. 
+        Os estados de todas as células em um instante são considerados para calcular o estado de todas as células no instante seguinte. 
+        Todas as células são atualizadas simultaneamente. As transições dependem apenas do número de vizinhos vivos.</p>
+
+        <h4>Regras do jogo da vida</h4>
+
+        <p> Qualquer célula viva com menos de dois vizinhos vivos morre de solidão.
+            Qualquer célula viva com mais de três vizinhos vivos morre de superpopulação.
+            Qualquer célula morta com exatamente três vizinhos vivos se torna uma célula viva.
+            Qualquer célula viva com dois ou três vizinhos vivos continua no mesmo estado para a próxima geração.
+            É importante entender que todos os nascimentos e mortes ocorrem simultaneamente. Juntos eles constituem uma geração. </p>
+
+        <h4>Os três critérios buscados pelo criador do jogo:</h4>
+
+        <p> Não deve haver nenhuma imagem inicial para a qual haja uma prova imediata ou trivial de que a população pode crescer sem limite.
+            Deve haver imagens iniciais que aparentemente cresçam sem limite.
+            Deve haver imagens iniciais simples que cresçam e mudem por um período de tempo considerável antes de chegar a um fim das possíveis
+            formas:
+            Sumindo completamente (por superpopulação ou por ficarem muito distantes)
+            Estacionando em uma configuração estável que se mantem imutável para sempre, ou entrando em uma fase de oscilação na qual 
+            são repetidos ciclos infinitos de período dois ou mais.
+            Em outras palavras, as regras deviam tornar o comportamento das populações ao mesmo tempo interessante e imprevisível. </p>
+
+    </p>
+    </header>
+<footer>
+    <div class="rodape">
+        <h3>Alunos: Ana Luiza Branco Letti, Jucian Kauê Decezare, Júlia Pagliochi Dupont </h3> 
+        <h3>Turma: 2F </h3>
+        <h4>Disciplina: DW II </h4>
+        <h4>Professor: Tiago Mazzutti </h4>
+    </div>
+    <a href="index.html">VOLTAR PARA O JOGO</a>
+</footer>
+    </body>
+</html>
