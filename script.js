@@ -45,7 +45,7 @@ function draw(grid) {
         cell_position[0] = initial_pos[0]
     }
 }
-//ERRO
+// WORKING
 function actualize_grid(grid) {
     // cell > 3 -> morre
     // cell < 2 -> morre
@@ -124,59 +124,45 @@ function actualize_grid(grid) {
 
         let counter = 0
         for (let i = 0; i < around.length; i++) {
-            if (around[i] === 1) {
+            if (around[i] == 1) {
                 counter += 1
             }
         }
         return counter
     }
 
-    function generate_list_counters() {
-        let list = Array(grid.length)
-
-        for (let i = 0; i < grid.length; i++) {
-            list[i] = Array(grid[0].length)
-        } 
-
-        console.log(list[1])
-        for (let i = 0; i <= grid.length-1; i++) {
-            for (let j = 0; j <= grid[i].length-1; j++) {
-                list[i][j] = count_around([i, j])
-            }
-        }
-        return list
+    let new_grid = Array(grid.length)
+    for (let i = 0; i < grid.length; i++) {
+        new_grid[i] = Array(grid[i].length) 
     }
-
-    let list_surroundings = generate_list_counters()
-    let new_grid = grid
-
+    
+    let around
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
-           if (grid[i][j] == 1) {
-               if (list_surroundings[i][j] < 2) {
+            around = count_around([i, j])
+
+            console.log(i, j, around)
+            if (grid[i][j] == 1) {
+
+               if (around <= 1) {
                    new_grid[i][j] = 0
-               } else if (list_surroundings[i][j] > 3) {
-                   new_grid[i][j] = 0
-               } else {
+               } else if (around == 2 || around == 3) {
                    new_grid[i][j] = 1
+               } else if (around >= 4) {
+                   new_grid[i][j] = 0
                }
                
-           }
-           if (grid[i][j] == 0) {
-               if (list_surroundings[i][j] == 3) {
+            } else if (grid[i][j] == 0) {
+               if (around == 3) {
                 new_grid[i][j] = 1
                }
            }
-           console.log(i, j, list_surroundings[i][j])
-            
-            
-            
         }
     }
 
     return new_grid
 }
-// 
+// ERRO
 function click(pos, grid) {
     console.log(pos)
     let cell = convert_PosToCell(pos)
@@ -221,9 +207,9 @@ function convert_PosToCell(mouse_position) {
 }
 
 function change_grid(grid) {
-    grid[5][4] = 1
-    grid[5][5] = 1
-    grid[5][6] = 1
+    grid[6][4] = 1
+    grid[6][5] = 1
+    grid[6][6] = 1
     return grid
 }
 
@@ -252,13 +238,12 @@ function setup() {
     }
     
     let grid = Create_2D_grid(columns, rows)    // Cria o grid
-    console.log(grid.length, grid[1].length)
     draw(grid) // Desenha o tabuleiro
     
-    document.addEventListener('keydown', (event) => {
-        console.log('tecla clicada')
-        grid = change_grid(grid)
-        draw(grid)
+    grid = change_grid(grid)
+    draw(grid)
+
+    window.document.querySelector('button#start').addEventListener('click', () => {
         grid = actualize_grid(grid)
         draw(grid)
     })

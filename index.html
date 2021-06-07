@@ -5,19 +5,32 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="style.css">
         <script type="text/javascript" src="script.js"></script>
         <title>GAME OF LIFE</title>
     </head>
     <body>
-        <nav>
-            <h1>GAME OF LIFE</h1>
-        </nav>
+        <header>
+            <div class="container-logo">
+                <div class="logo-imagem"></div>
+                <div class="logo-texto">
+                    <h1>GAME OF LIFE</h1>
+                </div>
+            </div>
+        
+            <div class="menu"> 
+                    <li><a href="gameoflife2.html">INFORMAÇÕES</a></li>
+            </div>
+        </header>
 
         <canvas id="gameboard" width=1200 height=500>
         </canvas>
         
         <footer>
+            <div class="rodape">
+                <button id="start" class="botao botao-rosa">START</button>
+                <button id="pause" class="botao2 botao2-roxo">PAUSE</button>
+            </div>
         </footer>
     </body>
     
