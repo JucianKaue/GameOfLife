@@ -147,7 +147,34 @@ function actualize_grid(grid) {
         return list
     }
 
-    console.log(generate_list_counters()[4])
+    let list_surroundings = generate_list_counters()
+    let new_grid = grid
+
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+           if (grid[i][j] == 1) {
+               if (list_surroundings[i][j] < 2) {
+                   new_grid[i][j] = 0
+               } else if (list_surroundings[i][j] > 3) {
+                   new_grid[i][j] = 0
+               } else {
+                   new_grid[i][j] = 1
+               }
+               
+           }
+           if (grid[i][j] == 0) {
+               if (list_surroundings[i][j] == 3) {
+                new_grid[i][j] = 1
+               }
+           }
+           console.log(i, j, list_surroundings[i][j])
+            
+            
+            
+        }
+    }
+
+    return new_grid
 }
 // 
 function click(pos, grid) {
@@ -197,11 +224,6 @@ function change_grid(grid) {
     grid[5][4] = 1
     grid[5][5] = 1
     grid[5][6] = 1
-    grid[6][7] = 1
-    grid[7][6] = 1
-    grid[7][5] = 1
-    grid[7][4] = 1
-    grid[6][3] = 1
     return grid
 }
 
@@ -220,8 +242,7 @@ let rows = screen[1]/cell_size - (Math.round((screen[1]/cell_size*cell_border_si
 canvas.addEventListener('click', click([canvas.offsetWidth, canvas.offsetHeight]))
 
 function setup() {
-    console.log(columns)
-    console.log(rows)
+    console.log(columns, rows)
     // Verificar se o HTMl canvas está funcionando corretamente e inicializa-lo
     let canvas = window.document.querySelector("canvas")
     if (! canvas.getContext) {
@@ -233,19 +254,12 @@ function setup() {
     let grid = Create_2D_grid(columns, rows)    // Cria o grid
     console.log(grid.length, grid[1].length)
     draw(grid) // Desenha o tabuleiro
-
-    canvas.addEventListener('click', (event) => {
-        const canvas_window = canvas.getBoundingClientRect()
-        const x = (event.clientX - canvas_window.left) / screen[0] * 100
-        const y = (event.clientY - canvas_window.top) / screen[1] * 100
-        click([x, y], grid)}, false)
     
     document.addEventListener('keydown', (event) => {
         console.log('tecla clicada')
         grid = change_grid(grid)
         draw(grid)
-        actualize_grid(grid)
+        grid = actualize_grid(grid)
         draw(grid)
-        
     })
 }
