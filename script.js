@@ -51,17 +51,38 @@ function actualize_grid(grid) {
     // cell < 2 -> morre
     // space = 3 -> vive
     function count_around(n) {
-        console.log(n[1])
-        let around = [
-            grid[n[0]-1][n[1]-1],
-            grid[n[0]-1][n[1]],
-            grid[n[0]-1][n[1]+1],
-            grid[n[0]][n[1]-1],
-            grid[n[0]][n[1]+1],
-            grid[n[0]+1][n[1]-1],
-            grid[n[0]+1][n[1]],
-            grid[n[0]+1][n[1]+1]
-        ]
+        let around
+        if (n[0] == 0) {
+            around = [
+                grid[n[0]][n[1]-1],
+                grid[n[0]][n[1]+1],
+                grid[n[0]+1][n[1]-1],
+                grid[n[0]+1][n[1]],
+                grid[n[0]+1][n[1]+1]
+            ]
+        } else if (n[1] == 0) {
+            around = [
+               grid[n[0]-1][n[1]],
+                grid[n[0]-1][n[1]+1],
+                grid[n[0]][n[1]+1],
+                grid[n[0]+1][n[1]],
+                grid[n[0]+1][n[1]+1] 
+            ]
+            
+        }
+        else {
+            around = [
+                grid[n[0]-1][n[1]-1],
+                grid[n[0]-1][n[1]],
+                grid[n[0]-1][n[1]+1],
+                grid[n[0]][n[1]-1],
+                grid[n[0]][n[1]+1],
+                grid[n[0]+1][n[1]-1],
+                grid[n[0]+1][n[1]],
+                grid[n[0]+1][n[1]+1]
+            ]
+        }
+        
 
         let counter = 0
         for (let i = 0; i < around.length; i++) {
@@ -71,61 +92,7 @@ function actualize_grid(grid) {
         }
         return counter
     }
-    
 
-    console.log(count_around([1, 0]))
-    /*
-    for (let x = 0; x < grid.length; x++) {
-        for (let y = 0; y < grid[x].length; y++) {
-            
-        }
-    }
-    */  
-
-
-    /*
-    function around(n) {
-        let cell_around = [
-            grid[n[0]-1,n[1]-1],
-            grid[n[0]-1,n[1]],
-            grid[n[0]-1,n[1]+1],
-            grid[n[0],n[1]-1],
-            grid[n[0],n[1]+1],
-            grid[n[0]+1,n[1-1]],
-            grid[n[0]+1,n[1]],
-            grid[n[0]+1,n[1]+1]
-        ]
-        
-        let total_alive = parseInt(0)
-        for (let i = 0; i < 9; i++) {
-            if (cell_around[i] == 1) {
-                total_alive++
-            }
-        }
-        return total_alive
-    }
-    console.log(grid[0])
-    console.log(around([1, 1]))
-    
-    
-    console.log(2)
-    for (let i = 0; i < grid.length; i++) {
-        for (let j = 0; j < grid[i].length; j++) {
-            console.log(grid[i])
-            cell_around = around([i,j])
-            console.log(grid)
-            if (cell_around > 3) {
-                grid[i][j] = 0
-            } else if (cell_around < 2 ) {
-                grid[i][j] = 0
-            } else if (cell_around == 2) {
-                grid[i][j] = 1
-            }
-        }
-    }
-    draw(grid)
-    return grid
-    */
 }
 // 
 function click(pos, grid) {
@@ -205,8 +172,8 @@ function setup() {
 
     canvas.addEventListener('click', (event) => {
         const canvas_window = canvas.getBoundingClientRect()
-        const x = event.clientX - canvas_window.left
-        const y = event.clientY - canvas_window.top
+        const x = (event.clientX - canvas_window.left) / screen[0] * 100
+        const y = (event.clientY - canvas_window.top) / screen[1] * 100
         click([x, y], grid)}, false)
     
     document.addEventListener('keydown', (event) => {
