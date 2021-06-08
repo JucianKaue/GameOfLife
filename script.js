@@ -1,6 +1,8 @@
 window.document.addEventListener('DOMContentLoaded', setup)
 
 
+
+
 /*
 &#9633 -> quadrado branco
 &#9632 -> quadrado preto
@@ -242,10 +244,27 @@ function setup() {
     
     grid = change_grid(grid)
     draw(grid)
-
-    window.document.querySelector('button#start').addEventListener('click', () => {
-        
+    
+    // loop
+    let frame = 200
+    let game_run
+    let game = function() {
         grid = actualize_grid(grid)
         draw(grid)
+        if (game_run) {
+           setTimeout(game, frame) 
+        }
+        
+    }
+    // BOTÕES
+    // Botão "start" para iniciar o jogo
+    window.document.querySelector('button#start').addEventListener('click', () => {
+        game_run = true
+        setTimeout(game, frame)
     })
+    // Botão "pause" para pausar o jogo
+    window.document.querySelector('button#pause').addEventListener('click', () => {
+        game_run = false
+    })
+
 }
