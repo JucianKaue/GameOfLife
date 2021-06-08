@@ -33,6 +33,7 @@ function setup() {
     })
 
     // LOOP DO JOGO
+    let initial_grid_position
     let frame = 200
     let game_run
     let game = function() {
@@ -44,17 +45,22 @@ function setup() {
         
     }
 
-    // BOTÕES
-    // Botão "start" para iniciar o jogo
+    // BUTTONS
+    // Button "start" -> starts the game
     window.document.querySelector('button#start').addEventListener('click', () => {
+        initial_grid_position = grid
         game_run = true
         setTimeout(game, frame)
     })
-    // Botão "pause" para pausar o jogo
+    // Button "pause" -> pause the game
     window.document.querySelector('button#pause').addEventListener('click', () => {
         game_run = false
     })
-
+    // Button "reset" -> reset the 
+    window.document.querySelector('button#reset').addEventListener('click', () => {
+        grid = initial_grid_position
+        draw(grid)
+    })
 }
 
 // Creates an array of arrays to represents a 2D grid
@@ -220,14 +226,12 @@ function convert_PosToCell(x, y) {
     return [cellX, cellY]
 }
 
-// Chance the life status of the cell
+// Change the life status of the cell
 function add_cell(pos, grid) {
-    console.log(pos)
     if (grid[pos[1]][pos[0]] == 1) {
         grid[pos[1]][pos[0]] = 0
     } else {
         grid[pos[1]][pos[0]] = 1
-    }
-    
+    } 
     draw(grid)
 }
