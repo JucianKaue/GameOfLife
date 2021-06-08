@@ -34,8 +34,9 @@ function setup() {
 
     // LOOP DO JOGO
     let initial_grid_position
-    let frame = 200
-    let game_run
+    let initial_frame = 200
+    let frame = initial_frame
+    let game_run = false
     let game = function() {
         grid = actualize_grid(grid)
         draw(grid)
@@ -48,9 +49,14 @@ function setup() {
     // BUTTONS
     // Button "start" -> starts the game
     window.document.querySelector('button#start').addEventListener('click', () => {
-        initial_grid_position = grid
-        game_run = true
-        setTimeout(game, frame)
+        if (game_run == true) {
+            frame /= 2
+        } else {
+            initial_grid_position = grid
+            game_run = true
+            frame = 200
+            setTimeout(game, frame)
+        }
     })
     // Button "pause" -> pause the game
     window.document.querySelector('button#pause').addEventListener('click', () => {
@@ -58,7 +64,12 @@ function setup() {
     })
     // Button "reset" -> reset the 
     window.document.querySelector('button#reset').addEventListener('click', () => {
-        grid = initial_grid_position
+        if (grid === initial_grid_position) {
+            grid = Create_2D_grid(grid.length, grid[0].length)
+        } else {
+            grid = initial_grid_position
+        }
+        
         draw(grid)
     })
 }
@@ -89,7 +100,7 @@ function draw(grid) {
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < columns; j++) {
             if (grid[i][j] == 1) {
-                ctx.fillStyle = '#F5F000'
+                ctx.fillStyle = '#8FFF28'
             } else {
                 ctx.fillStyle = 'gray'
             }
