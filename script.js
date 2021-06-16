@@ -131,82 +131,32 @@ function draw(grid) {
 // Actualize the grid based on the rules of game of life
 function actualize_grid(grid) {
     // Recebe um par de coordenadas que representa uma célula e retorna quantas células vivas existema redor dela
-    function count_around(n) {
+    function count_around(x, y) {
         // Salva o estado(vivo ou morto - 1 ou 0) de cada uma das casas ao redor em uma lista
-        let around
-        if (n[0] == 0 & n[1] == 0) { // Canto superior esquerdo
-            around = [
-                grid[n[0]][n[1]+1],
-                grid[n[0]+1][n[1]],
-                grid[n[0]+1][n[1]+1]
-            ]
-        } else if (n[0] == 0 & n[1] == grid[1].length-1) { // Canto superior direito
-            around = [
-                grid[n[0]][n[1]-1],
-                grid[n[0]+1][n[1]-1],
-                grid[n[0]+1][n[1]],
-            ]
-        } else if (n[0] == grid.length-1 & n[1] == grid[1].length-1) { // Canto inferior direito
-            around = [
-                grid[n[0]-1][n[1]-1],
-                grid[n[0]-1][n[1]],
-                grid[n[0]][n[1]-1],
-            ]
-        } else if(n[0] == grid.length-1 & n[1] == 0) { // Canto inferior esquerdo
-            around = [
-                grid[n[0]-1][n[1]],
-                grid[n[0]-1][n[1]+1],
-                grid[n[0]][n[1]+1],
-            ]
-        } else if (n[0] == 0) { // linha superior
-            around = [
-                grid[n[0]][n[1]-1],
-                grid[n[0]][n[1]+1],
-                grid[n[0]+1][n[1]-1],
-                grid[n[0]+1][n[1]],
-                grid[n[0]+1][n[1]+1]
-            ]
-        } else if (n[1] == 0) { // coluna esquerda
-            around = [
-                grid[n[0]-1][n[1]],
-                grid[n[0]-1][n[1]+1],
-                grid[n[0]][n[1]+1],
-                grid[n[0]+1][n[1]],
-                grid[n[0]+1][n[1]+1] 
-            ]
-        } else if (n[0] == grid.length-1) { // linha inferior
-            around = [
-                grid[n[0]-1][n[1]-1],
-                grid[n[0]-1][n[1]],
-                grid[n[0]-1][n[1]+1],
-                grid[n[0]][n[1]-1],
-                grid[n[0]][n[1]+1],
-            ]
-        } else if (n[1] == grid[1].length-1) { // coluna direita
-            around = [
-                grid[n[0]-1][n[1]-1],
-                grid[n[0]-1][n[1]],
-                grid[n[0]][n[1]-1],
-                grid[n[0]+1][n[1]-1],
-                grid[n[0]+1][n[1]],
-            ]
-        } else { // resto do tabuleiro
-            around = [
-                grid[n[0]-1][n[1]-1],
-                grid[n[0]-1][n[1]],
-                grid[n[0]-1][n[1]+1],
-                grid[n[0]][n[1]-1],
-                grid[n[0]][n[1]+1],
-                grid[n[0]+1][n[1]-1],
-                grid[n[0]+1][n[1]],
-                grid[n[0]+1][n[1]+1]
-            ]
+        neighbors = [
+            [x-1, y-1],
+            [x-1, y],
+            [x-1, y+1],
+            [x,   y-1],
+            [x,   y+1],
+            [x+1, y-1],
+            [x+1, y],
+            [x+1, y+1]  
+        ]
+        list = []
+        for (let i = 0; i < neighbors.length; i++) {
+            let x = neighbors[i][0]
+            let y = neighbors[i][1]
+            if (x < 0 || x >= rows || y < 0 || y >= columns) {
+                continue
+            }
+            list.push(grid[x][y])
         }
 
         // Percorre pela lista gerada anteriormente e adiciona 1 ao contador(counter) toda vez que encontra uma célula viva.
         let counter = 0
-        for (let i = 0; i < around.length; i++) {
-            if (around[i] == 1) {
+        for (let i = 0; i < list.length; i++) {
+            if (list[i] == 1) {
                 counter += 1
             }
         }
@@ -214,16 +164,15 @@ function actualize_grid(grid) {
     }
 
     // Gera um novo grid 2D vazio
-    let new_grid = Create_2D_grid(grid.length, grid[0].length)
+    let new_grid = Create_2D_grid(grid[0].length, grid.length)
     
     let around
     // Percorre todo o tabuleiro analizando cada uma das casas e atualizando-as com base nas regras do jogo.
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
-            around = count_around([i, j])
-
+            around = count_around(i, j)
+            
             if (grid[i][j] == 1) {
-
                if (around <= 1) {
                    new_grid[i][j] = 0
                } else if (around == 2 || around == 3) {
